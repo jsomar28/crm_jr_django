@@ -1,0 +1,32 @@
+{% extends 'base_persona.html' %}
+
+{% block identificador %}
+   Detalle {{ persona.nombre }} {{ persona.apellido }}
+{% endblock %}
+
+{% block container %}
+
+<div class="container mt-5">
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4>Confirmar Eliminación</h4>
+        </div>
+        <div class="card-body">
+            <p>¿Seguro que deseas eliminar a:</p>
+            <h5>{{ persona.nombre }} {{ persona.apellido }}?</h5>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    Sí, eliminar
+                </button>
+
+                <a href="{% url 'persona_detalle' persona.id %}" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

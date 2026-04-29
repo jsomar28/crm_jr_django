@@ -1,0 +1,105 @@
+{% extends 'base_persona.html' %}
+{% load static %}
+
+
+{% block title %}
+Lista Personas
+{% endblock %}
+
+
+
+{% block identificador %}
+Detalle de Persona
+{% endblock %}
+   
+{% block container %}
+<link href="{% static 'css/estilos.css' %}" rel="stylesheet" />
+    <div class="card mb-3 p-3" >
+        <div class="row g-0">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                {% if persona.foto %}
+                <img src="{{ persona.foto.url }}" class="img-fluid rounded-start" alt="{{ persona.foto.url }}">
+                {% else %}
+                     <img src="{% static 'images/logo/avatar.jpg' %}" class="img-fluid rounded-start" alt="Avatar">
+                {% endif %}
+
+                
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h4 class="card-title">{{ persona.nombre }} {{ persona.apellido }}</h4>
+                    <p class="card-text"><strong>Cedula:</strong> 225-0003673-0</p>
+                    <p class="card-text"><strong>Email:</strong> {{ persona.email }}</p>
+                    <p class="card-text"><strong>Teléfono:</strong> {{ persona.telefono }}</p>
+                    
+                    <p class="card-text"><strong>Fecha de Nacimiento:</strong> {{ persona.fecha_nacimiento }}</p>
+                    <p class="card-text"><strong>Rol:</strong> <span class="badge bg-primary">{{ persona.rol }}</span></p>
+                    <p class="card-text"><strong>Dirección:</strong> {{ persona.direccion }}</p>
+                    
+
+                    {% comment %} <a href="{% url 'persona_editar' persona.id %}" class="btn btn-outline-warning">Editar</a> {% endcomment %}
+                    
+                    <hr class="border border-primary  border-2 opacity-50">
+
+                    <a href="{% url 'persona_update' persona.id %}" class="btn btn-outline-warning">Editar</a>
+                    
+                    <form action="{% url 'persona_eliminar' persona.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                    </form>
+                    
+                    <a href="{% url 'persona_listar' %}" class="btn btn-outline-secondary">Volver a la Lista</a>
+                    
+                </div>
+            </div>
+            <div class="col-md-2">
+
+            {% if persona.activo %}
+                <span class="badge bg-success">Activo</span>
+            {% else %}
+                <span class="badge bg-secondary">Inactivo</span>
+            {% endif %}
+           
+            
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h4 class="mt-2">Notas</h4>
+        <a href="{% url 'nota_create' persona.pk %}" class="btn btn-primary mb-3"> + Nueva Nota</a>
+        
+        <div id="notas-container" class="notas-scroll">
+        {% for nota in persona.notas.all %}
+        <div  class=" card m-2 {% if nota.importante %}border-danger{% endif %}">
+        
+            <div class="card-body">
+                {% if nota.importate %}
+                    <span class="badge bg-danger"> Importante</span>
+                {% endif %}
+
+                <h6>{{ nota.titulo }}</h6>
+                <p>{{ nota.contenido }}</p>
+
+                <small class="text-muted">
+                    {{ nota.autor }}  |  {{ nota.fecha_creacion }}
+                </small>
+            </div>
+        
+        </div>
+        {% empty %}
+
+        <p>No hay notas aun.</p>
+
+        {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %} "></script>
+
+{% endblock %}

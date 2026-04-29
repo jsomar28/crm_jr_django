@@ -1,0 +1,25 @@
+{% extends 'base_persona.html' %}
+
+{% block identificador %}
+Gestion Personas
+{% endblock %}
+
+{% block container %}
+{% load bootstrap_icons %}
+    <div class=" d-flex flex-row justify-content-start container-fluid">    
+        <!-- Ejemplo con personalización de tamaño y color -->
+         <a class="card p-2 me-3" href="{% url 'persona_listar' %}">  {% bs_icon 'people-fill' size='7em' color='green' %} </a> 
+         <a class="card p-2 me-3" href="{% url 'persona_crear' %}">  {% bs_icon 'person-fill-add' size='7em' color='blue' %} </a>
+    </div>
+
+        {% comment %} <div class="dropdown">
+                  <a href="{% url 'persona_listar' %}" class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown button
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">{% bs_icon 'alarm' %} Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </div> {% endcomment %}
+{% endblock %}

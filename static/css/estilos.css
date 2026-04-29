@@ -1,0 +1,6 @@
+
+
+.notas-scroll{
+    max-height: 60vh;
+    overflow: auto;
+}

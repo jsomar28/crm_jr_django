@@ -1,0 +1,32 @@
+{% extends 'base_persona.html' %}
+
+
+
+{% block identificador %}
+
+   Nueva nota
+
+{% endblock %}
+
+{% block container %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+        <h5>Nueva Nota</h5>
+        
+       
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success"> Guardar</button>
+                <a href="{% url 'persona_detalle' view.kwargs.pk %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+         
+        </div>
+    </div>
+</div>
+
+{% endblock %}
